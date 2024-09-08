@@ -2,6 +2,11 @@ import { createBrowserRouter } from "react-router-dom";
 
 import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home";
+import Login from "../pages/Login";
+import SignUp from "../pages/Signup";
+import PrivateRoute from "./private/PrivateRoute";
+// import ProductDetails from "../pages/ProductDetails";
+import ProductList from "../pages/ProductList";
 
 export const router = createBrowserRouter([
   {
@@ -12,14 +17,14 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-      //   {
-      //     path: "/login",
-      //     element: <Login />,
-      //   },
-      //   {
-      //     path: "/signup",
-      //     element: <SignUp />,
-      //   },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
       //   {
       //     path: "/success",
       //     element: (
@@ -36,14 +41,14 @@ export const router = createBrowserRouter([
       //       </PrivateRoute>
       //     ),
       //   },
-      //   {
-      //     path: "/productlist",
-      //     element: (
-      //       <PrivateRoute>
-      //         <ProductList />
-      //       </PrivateRoute>
-      //     ),
-      //   },
+      {
+        path: "/productlist",
+        element: (
+          <PrivateRoute>
+            <ProductList />
+          </PrivateRoute>
+        ),
+      },
       //   {
       //     path: "/cartProducts",
       //     element: (
