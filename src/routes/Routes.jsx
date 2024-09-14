@@ -7,6 +7,10 @@ import SignUp from "../pages/Signup";
 import PrivateRoute from "./private/PrivateRoute";
 // import ProductDetails from "../pages/ProductDetails";
 import ProductList from "../pages/ProductList";
+import ProductDetails from "../pages/ProductDetails";
+import CartProducts from "../pages/CartProducts";
+import PaymentSuccess from "../pages/PaymentSuccess";
+import PaymentCancel from "../pages/PaymentCancel";
 
 export const router = createBrowserRouter([
   {
@@ -25,22 +29,22 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <SignUp />,
       },
-      //   {
-      //     path: "/success",
-      //     element: (
-      //       <PrivateRoute>
-      //         <PaymentSuccess />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: "/cancel",
-      //     element: (
-      //       <PrivateRoute>
-      //         <PaymentCancel />
-      //       </PrivateRoute>
-      //     ),
-      //   },
+      {
+        path: "/success",
+        element: (
+          <PrivateRoute>
+            <PaymentSuccess />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/cancel",
+        element: (
+          <PrivateRoute>
+            <PaymentCancel />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "/productlist",
         element: (
@@ -49,14 +53,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      //   {
-      //     path: "/cartProducts",
-      //     element: (
-      //       <PrivateRoute>
-      //         <CartProducts />
-      //       </PrivateRoute>
-      //     ),
-      //   },
+      {
+        path: "/cartProducts",
+        element: (
+          <PrivateRoute>
+            <CartProducts />
+          </PrivateRoute>
+        ),
+      },
       //   {
       //     path: "/add-products",
       //     element: (
@@ -73,18 +77,18 @@ export const router = createBrowserRouter([
       //       </PrivateRoute>
       //     ),
       //   },
-      //   {
-      //     path: "/products/:id",
-      //     element: (
-      //       <PrivateRoute>
-      //         <ProductDetails />
-      //       </PrivateRoute>
-      //     ),
-      //     loader: ({ params }) =>
-      //       fetch(
-      //         `https://ecommerce-dashboard-server-awlu.onrender.com/products/${params.id}`
-      //       ),
-      //   },
+      {
+        path: "/products/:id",
+        element: (
+          <PrivateRoute>
+            <ProductDetails />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://ecommerce-dashboard-server-awlu.onrender.com/products/${params.id}`
+          ),
+      },
       //   {
       //     path: "products/edit/:id",
       //     element: (

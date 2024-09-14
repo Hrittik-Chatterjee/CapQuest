@@ -11,10 +11,13 @@ const SignUp = () => {
 
   const from = location?.state?.from?.pathname || "/";
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+
     const form = e.target;
     const email = form.email.value;
+    const name = form.name.value;
+    const imageUrl = form.imageUrl.value;
     const password = form.password.value;
     const confirm_password = form.confirm_password.value;
 
@@ -22,11 +25,31 @@ const SignUp = () => {
       setPasswordMatch(false);
     }
 
-    if (password === confirm_password) {
-      await createUser(email, password);
-    }
-
     console.log(email, password, confirm_password);
+
+    if (password === confirm_password) {
+      createUser(email, password).then((data) => {
+        if (data?.user?.email) {
+          const userInfo = {
+            email: data?.user?.email,
+            imageUrl: imageUrl,
+            name: name,
+          };
+          fetch("https://ecommerce-dashboard-server-awlu.onrender.com/users", {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(userInfo),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              navigate(from);
+            });
+        }
+      });
+    }
   };
   useEffect(() => {
     if (user) {
@@ -48,11 +71,44 @@ const SignUp = () => {
               htmlFor="email"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
+              Your Name
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="name"
+                required
+                autoComplete="email"
+                className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-2"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Your Photo URL
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="imageUrl"
+                required
+                autoComplete="imageUrl"
+                className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-2"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
               Email address
             </label>
             <div className="mt-2">
               <input
-                id="email"
                 name="email"
                 type="email"
                 autoComplete="email"

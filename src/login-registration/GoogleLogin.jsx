@@ -5,7 +5,26 @@ const GoogleLogin = () => {
   const { googleLogin } = useAuth();
 
   const handleGoogleSignIn = () => {
-    googleLogin();
+    googleLogin().then((data) => {
+      if (data?.user?.email) {
+        const userInfo = {
+          name: data?.user?.displayName,
+          email: data?.user?.email,
+          imageUrl: data?.user?.photoURL,
+        };
+        fetch("https://ecommerce-dashboard-server-awlu.onrender.com/users", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("token", data?.token);
+          });
+      }
+    });
   };
 
   return (

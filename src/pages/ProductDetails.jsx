@@ -1,42 +1,15 @@
-import { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { CartContext } from "../context/CartContext";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../cart/cartSlice"; // Import the action
 
 const ProductDetails = () => {
   const product = useLoaderData();
-  console.log(product);
+  const dispatch = useDispatch(); // Access dispatch
 
   const { description, image_url, price, title, stock_quantity } = product;
-  const [quantity, setQuantity] = useState(1);
-  const [stockQuantity, setStockQuantity] = useState(stock_quantity);
 
-  const { addToCart } = useContext(CartContext);
-
-  // Function to handle quantity change
-  const handleQuantityChange = (e) => {
-    const newQuantity = parseInt(e.target.value);
-    if (newQuantity >= 1 && newQuantity <= stockQuantity) {
-      setQuantity(newQuantity);
-    }
-  };
-
-  // Calculate price based on quantity
-  const calculatePrice = () => {
-    return quantity * price;
-  };
-
-  // Handle adding product to cart
   const handleAddToCart = () => {
-    if (quantity <= stockQuantity) {
-      const productToAdd = {
-        ...product,
-        quantity,
-        totalPrice: calculatePrice(),
-      };
-      addToCart(productToAdd);
-      setStockQuantity(stockQuantity - quantity); // Update stock quantity
-      setQuantity(1); // Reset quantity after adding to cart
-    }
+    dispatch(addToCart(product)); // Dispatch the action with the product data
   };
 
   return (
@@ -52,39 +25,16 @@ const ProductDetails = () => {
         <p>{description}</p>
         <p className="mb-2">Price: ${price}</p>
 
-        <p className="mb-2">Sub Total: ${calculatePrice()}</p>
-
         {/* Available Quantity */}
         <div className="mb-4">
           <label className="mr-2">Available Quantity:</label>
-          <p>{stockQuantity}</p>
+          <p>{stock_quantity}</p>
         </div>
-
-        {/* Quantity Selector */}
-        {stockQuantity > 0 ? (
-          <div className="mb-4">
-            <label htmlFor="quantity" className="mr-2">
-              Selected Quantity:
-            </label>
-            <input
-              type="number"
-              id="quantity"
-              className="border border-slate-700 rounded-lg py-1 px-3 w-20 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-gray-700"
-              value={quantity}
-              onChange={handleQuantityChange}
-              min="1"
-              max={stockQuantity}
-            />
-          </div>
-        ) : (
-          <p className="mb-4 text-red-500">Out of Stock</p>
-        )}
 
         {/* Add to Cart Button */}
         <button
-          onClick={handleAddToCart}
+          onClick={handleAddToCart} // Handle Add to Cart
           className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-          disabled={stockQuantity <= 0}
         >
           Add to Cart
         </button>

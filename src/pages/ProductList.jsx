@@ -5,6 +5,7 @@ import { HashLoader } from "react-spinners";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [sortOption, setSortOption] = useState(""); // New state for sorting
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,13 +20,18 @@ const ProductList = () => {
       });
   }, []);
 
-  const filteredProducts = selectedCategory
+  // Filter products by category
+  let filteredProducts = selectedCategory
     ? products.filter((item) => item.category === selectedCategory)
     : products;
 
-  const handleDeleteProduct = (_id) => {
-    setProducts(products.filter((product) => product._id !== _id));
-  };
+  // Sort products based on selected sort option
+  if (sortOption === "lowToHigh") {
+    filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+  } else if (sortOption === "highToLow") {
+    filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+  }
+
   return (
     <div>
       {loading ? (
@@ -36,18 +42,29 @@ const ProductList = () => {
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content flex flex-col items-center justify-center">
-            {/* page content here */}
-            <div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {filteredProducts.map((product) => (
-                  <SingleProductCard
-                    key={product._id}
-                    product={product}
-                    onDelete={handleDeleteProduct}
-                  />
-                ))}
-              </div>
+            {/* Sorting options */}
+            <div className="flex justify-center space-x-4 my-4">
+              <button
+                className="btn"
+                onClick={() => setSortOption("lowToHigh")}
+              >
+                Price: Low to High
+              </button>
+              <button
+                className="btn"
+                onClick={() => setSortOption("highToLow")}
+              >
+                Price: High to Low
+              </button>
             </div>
+
+            {/* page content here */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {filteredProducts.map((product) => (
+                <SingleProductCard key={product._id} product={product} />
+              ))}
+            </div>
+
             <label
               htmlFor="my-drawer-2"
               className="btn btn-primary drawer-button lg:hidden"
@@ -74,34 +91,42 @@ const ProductList = () => {
               <li>
                 <button
                   className="btn my-4"
-                  onClick={() => setSelectedCategory("shirt")}
+                  onClick={() => setSelectedCategory("basic")}
                 >
-                  Shirt
+                  Basic Caps
                 </button>
               </li>
               <li>
                 <button
                   className="btn my-4"
-                  onClick={() => setSelectedCategory("t-shirt")}
+                  onClick={() => setSelectedCategory("BaseBall")}
                 >
-                  Tshirt
+                  Baseball Caps
                 </button>
               </li>
               <li>
                 <button
                   className="btn my-4"
-                  onClick={() => setSelectedCategory("pant")}
+                  onClick={() => setSelectedCategory("CowBoy")}
                 >
-                  Pant
+                  Cow Boy Hats
                 </button>
               </li>
 
               <li>
                 <button
                   className="btn my-4"
-                  onClick={() => setSelectedCategory("hat")}
+                  onClick={() => setSelectedCategory("FlatVisor")}
                 >
-                  Hats
+                  Flat Visor Caps
+                </button>
+              </li>
+              <li>
+                <button
+                  className="btn my-4"
+                  onClick={() => setSelectedCategory("Bucket")}
+                >
+                  Bucket Hats
                 </button>
               </li>
             </ul>
