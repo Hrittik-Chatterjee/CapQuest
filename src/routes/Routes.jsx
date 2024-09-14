@@ -11,6 +11,7 @@ import ProductDetails from "../pages/ProductDetails";
 import CartProducts from "../pages/CartProducts";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import PaymentCancel from "../pages/PaymentCancel";
+import SignUp from "../pages/Signup";
 // import SignUp from "../pages/Signup";
 
 export const router = createBrowserRouter([
@@ -26,10 +27,10 @@ export const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
-      // {
-      //   path: "/signup",
-      //   element: <SignUp />,
-      // },
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
       {
         path: "/success",
         element: (
