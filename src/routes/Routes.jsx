@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import SignUp from "../pages/Signup";
+
 import PrivateRoute from "./private/PrivateRoute";
 // import ProductDetails from "../pages/ProductDetails";
 import ProductList from "../pages/ProductList";
@@ -11,6 +11,7 @@ import ProductDetails from "../pages/ProductDetails";
 import CartProducts from "../pages/CartProducts";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import PaymentCancel from "../pages/PaymentCancel";
+import SignUp from "../pages/Signup";
 
 export const router = createBrowserRouter([
   {
