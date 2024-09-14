@@ -5,15 +5,13 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 
 import PrivateRoute from "./private/PrivateRoute";
-// import ProductDetails from "../pages/ProductDetails";
+
 import ProductList from "../pages/ProductList";
 import ProductDetails from "../pages/ProductDetails";
 import CartProducts from "../pages/CartProducts";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import PaymentCancel from "../pages/PaymentCancel";
-
-import Signup from "../pages/Signup";
-// import SignUp from "../pages/Signup";
+import Register from "../pages/Register";
 
 export const router = createBrowserRouter([
   {
@@ -29,8 +27,8 @@ export const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "/signup",
-        element: <Signup />,
+        path: "/register",
+        element: <Register />,
       },
       {
         path: "/success",

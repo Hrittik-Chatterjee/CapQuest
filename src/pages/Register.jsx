@@ -3,7 +3,7 @@ import useAuth from "../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleLogin from "../login-registration/GoogleLogin";
 
-const Signup = () => {
+const Register = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const { createUser, user } = useAuth();
   const location = useLocation();
@@ -159,7 +159,6 @@ const Signup = () => {
             <input
               className="inline-block w-full rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white"
               type="submit"
-              value="Signup"
             />
           </div>
           <GoogleLogin />
@@ -179,4 +178,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Register;
