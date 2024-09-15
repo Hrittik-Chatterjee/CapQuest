@@ -35,7 +35,7 @@ const ProductList = () => {
   return (
     <div>
       {loading ? (
-        <div className="flex justify-center">
+        <div className="flex justify-center items-center h-screen">
           <HashLoader color="#36d7b7" />
         </div>
       ) : (
