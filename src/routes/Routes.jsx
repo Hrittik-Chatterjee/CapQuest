@@ -12,6 +12,8 @@ import CartProducts from "../pages/CartProducts";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import PaymentCancel from "../pages/PaymentCancel";
 import Register from "../pages/Register";
+import UserDetails from "../pages/UserDetails";
+import EditProfile from "../pages/EditProfile";
 
 export const router = createBrowserRouter([
   {
@@ -88,6 +90,26 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(
             `https://ecommerce-dashboard-server-awlu.onrender.com/products/${params.id}`
+          ),
+      },
+      {
+        path: "/my-profile",
+        element: (
+          <PrivateRoute>
+            <UserDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-profile/edit/:id",
+        element: (
+          <PrivateRoute>
+            <EditProfile />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://ecommerce-dashboard-server-awlu.onrender.com/users/${params.id}`
           ),
       },
       //   {

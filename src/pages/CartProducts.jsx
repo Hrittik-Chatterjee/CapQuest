@@ -8,6 +8,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_publishableKey);
 const CartProducts = () => {
   // Access cartItems and totalPrice from Redux state
   const { cartItems, totalPrice } = useSelector((state) => state.cart);
+  console.log(cartItems);
   const dispatch = useDispatch();
   const { user } = useAuth();
   const customerEmail = user?.email;
@@ -16,24 +17,35 @@ const CartProducts = () => {
   const handleCheckout = async () => {
     const stripe = await stripePromise;
 
-    const response = await fetch(
-      "https://ecommerce-dashboard-server-awlu.onrender.com/checkout",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ cart: cartItems, email: customerEmail }),
+    try {
+      const response = await fetch(
+        "https://ecommerce-dashboard-server-awlu.onrender.com/checkout",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ cart: cartItems, email: customerEmail }),
+        }
+      );
+
+      // Check if response is ok
+      if (!response.ok) {
+        throw new Error("Failed to create a checkout session");
       }
-    );
 
-    const session = await response.json();
-    const result = await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
+      const session = await response.json();
 
-    if (result.error) {
-      console.error(result.error.message);
+      // Redirect to Stripe checkout
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (result.error) {
+        console.error("Stripe redirect error:", result.error.message);
+      }
+    } catch (error) {
+      console.error("Checkout error:", error.message);
     }
   };
 
