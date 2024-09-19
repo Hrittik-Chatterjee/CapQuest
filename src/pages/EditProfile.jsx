@@ -91,6 +91,7 @@ const EditProfile = () => {
               type="number"
               id="age"
               name="age"
+              value={age}
               onChange={(e) => setAge(e.target.value)}
               className="block w-full px-4 py-3 text-gray-800 bg-gray-50 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none"
               placeholder="Enter your age"

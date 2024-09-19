@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import { removeFromCart } from "../cart/cartSlice"; // Make sure you have this action in your slice
+import { removeFromCart } from "../cart/cartSlice";
 import { loadStripe } from "@stripe/stripe-js";
 import useAuth from "../hooks/useAuth";
 const stripePromise = loadStripe(import.meta.env.VITE_publishableKey);
@@ -17,35 +17,24 @@ const CartProducts = () => {
   const handleCheckout = async () => {
     const stripe = await stripePromise;
 
-    try {
-      const response = await fetch(
-        "https://ecommerce-dashboard-server-awlu.onrender.com/checkout",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ cart: cartItems, email: customerEmail }),
-        }
-      );
-
-      // Check if response is ok
-      if (!response.ok) {
-        throw new Error("Failed to create a checkout session");
+    const response = await fetch(
+      "https://ecommerce-dashboard-server-awlu.onrender.com/checkout",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cart: cartItems, email: customerEmail }),
       }
+    );
 
-      const session = await response.json();
+    const session = await response.json();
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
 
-      // Redirect to Stripe checkout
-      const result = await stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-
-      if (result.error) {
-        console.error("Stripe redirect error:", result.error.message);
-      }
-    } catch (error) {
-      console.error("Checkout error:", error.message);
+    if (result.error) {
+      console.error(result.error.message);
     }
   };
 
