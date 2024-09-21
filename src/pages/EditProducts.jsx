@@ -31,14 +31,17 @@ const EditProducts = () => {
       stock_quantity,
     };
 
-    await fetch(`http://localhost:5000/products/${product._id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
+    await fetch(
+      `https://ecommerce-dashboard-server-awlu.onrender.com/products/${product._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

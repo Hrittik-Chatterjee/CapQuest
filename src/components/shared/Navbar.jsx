@@ -114,8 +114,8 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/my-products" className="justify-between">
-                  My Added Products
+                <Link to="/AddedProductsLists" className="justify-between">
+                  Added Product Lists
                 </Link>
               </li>
             </ul>

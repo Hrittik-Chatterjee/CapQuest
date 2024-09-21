@@ -16,6 +16,7 @@ import UserDetails from "../pages/UserDetails";
 import EditProfile from "../pages/EditProfile";
 import EditProducts from "../pages/EditProducts";
 import AddProducts from "../pages/AddProducts";
+import AddedProductsList from "../pages/AddedProductsLists";
 
 export const router = createBrowserRouter([
   {
@@ -74,14 +75,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      //   {
-      //     path: "/my-products",
-      //     element: (
-      //       <PrivateRoute>
-      //         <MyProductList />
-      //       </PrivateRoute>
-      //     ),
-      //   },
+      {
+        path: "/AddedProductsLists",
+        element: (
+          <PrivateRoute>
+            <AddedProductsList />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "/products/:id",
         element: (

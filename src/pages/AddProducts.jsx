@@ -28,14 +28,17 @@ const AddProducts = () => {
       userEmail,
     };
 
-    await fetch("http://localhost:5000/products", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
+    await fetch(
+      "https://ecommerce-dashboard-server-awlu.onrender.com/products",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
