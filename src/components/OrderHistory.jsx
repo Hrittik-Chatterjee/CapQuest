@@ -21,7 +21,7 @@ const OrderHistory = () => {
   }, [user?.email]);
 
   return (
-    <div className="bg-gray-100 p-8">
+    <div className="bg-gray-100 p-8 my-8">
       <div className="bg-white shadow-md rounded-lg">
         <div className="px-6 py-4 border-b">
           <h2 className="font-bold text-xl">Order History</h2>

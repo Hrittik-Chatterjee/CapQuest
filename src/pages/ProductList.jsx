@@ -5,7 +5,7 @@ import { HashLoader } from "react-spinners";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [sortOption, setSortOption] = useState(""); // New state for sorting
+  const [sortOption, setSortOption] = useState(""); // State for sorting
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -42,20 +42,21 @@ const ProductList = () => {
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content flex flex-col items-center justify-center">
-            {/* Sorting options */}
-            <div className="flex justify-center space-x-4 my-4">
-              <button
-                className="btn"
-                onClick={() => setSortOption("lowToHigh")}
-              >
-                Price: Low to High
-              </button>
-              <button
-                className="btn"
-                onClick={() => setSortOption("highToLow")}
-              >
-                Price: High to Low
-              </button>
+            {/* Sorting dropdown */}
+            <div className="flex justify-end space-x-4 my-4 w-full">
+              {" "}
+              {/* Changed to justify-end */}
+              <div className="relative inline-block">
+                <select
+                  className="select select-bordered w-full max-w-xs"
+                  onChange={(e) => setSortOption(e.target.value)}
+                  value={sortOption}
+                >
+                  <option value="">Recommended</option>
+                  <option value="lowToHigh">Price: Low to High</option>
+                  <option value="highToLow">Price: High to Low</option>
+                </select>
+              </div>
             </div>
 
             {/* page content here */}
@@ -112,7 +113,6 @@ const ProductList = () => {
                   Cow Boy Hats
                 </button>
               </li>
-
               <li>
                 <button
                   className="btn my-4"

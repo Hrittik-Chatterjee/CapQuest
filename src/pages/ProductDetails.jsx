@@ -4,12 +4,14 @@ import { addToCart } from "../cart/cartSlice"; // Import the action
 
 const ProductDetails = () => {
   const product = useLoaderData();
-  const dispatch = useDispatch(); // Access dispatch
+  const dispatch = useDispatch();
 
   const { description, image_url, price, title, stock_quantity } = product;
 
   const handleAddToCart = () => {
-    dispatch(addToCart(product)); // Dispatch the action with the product data
+    if (stock_quantity > 0) {
+      dispatch(addToCart(product));
+    }
   };
 
   return (
@@ -33,11 +35,23 @@ const ProductDetails = () => {
 
         {/* Add to Cart Button */}
         <button
-          onClick={handleAddToCart} // Handle Add to Cart
-          className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+          onClick={handleAddToCart}
+          className={`py-2 px-4 rounded ${
+            stock_quantity > 0
+              ? "bg-green-500 text-white hover:bg-green-600"
+              : "bg-gray-500 text-white cursor-not-allowed"
+          }`}
+          disabled={stock_quantity === 0} // Ensure this checks correctly
         >
-          Add to Cart
+          {stock_quantity > 0 ? "Add to Cart" : "Not Available"}
         </button>
+
+        {/* Stock message */}
+        {stock_quantity === 0 && (
+          <p className="text-red-500 mt-4">
+            You can&apos,t add more. No more products available.
+          </p>
+        )}
       </div>
     </div>
   );

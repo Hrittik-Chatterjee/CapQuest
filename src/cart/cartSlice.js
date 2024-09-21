@@ -12,12 +12,22 @@ const cartSlice = createSlice({
       const existingItem = state.cartItems.find(
         (item) => item._id === action.payload._id
       );
+
       if (existingItem) {
-        existingItem.quantity += 1;
+        // Check stock before increasing quantity
+        if (existingItem.quantity < action.payload.stock_quantity) {
+          existingItem.quantity += 1;
+        } else {
+          console.log("Cannot add more of this item. Stock limit reached.");
+        }
       } else {
-        state.cartItems.push({ ...action.payload, quantity: 1 });
+        // Add only if stock is available
+        if (action.payload.stock_quantity > 0) {
+          state.cartItems.push({ ...action.payload, quantity: 1 });
+        }
       }
-      // Recalculate totalQuantity and totalPrice
+
+      // Recalculate totals
       state.totalQuantity = state.cartItems.reduce(
         (total, item) => total + item.quantity,
         0
@@ -31,9 +41,9 @@ const cartSlice = createSlice({
       const item = state.cartItems.find(
         (product) => product._id === action.payload
       );
-      if (item) {
+      if (item && item.quantity < item.stock_quantity) {
         item.quantity += 1;
-        // Recalculate totalQuantity and totalPrice
+        // Recalculate totals
         state.totalQuantity = state.cartItems.reduce(
           (total, item) => total + item.quantity,
           0
@@ -42,6 +52,8 @@ const cartSlice = createSlice({
           (total, item) => total + item.price * item.quantity,
           0
         );
+      } else {
+        console.log("Cannot increase quantity. Stock limit reached.");
       }
     },
     decreaseQuantity(state, action) {
@@ -50,7 +62,7 @@ const cartSlice = createSlice({
       );
       if (item && item.quantity > 1) {
         item.quantity -= 1;
-        // Recalculate totalQuantity and totalPrice
+        // Recalculate totals
         state.totalQuantity = state.cartItems.reduce(
           (total, item) => total + item.quantity,
           0
@@ -65,7 +77,7 @@ const cartSlice = createSlice({
       state.cartItems = state.cartItems.filter(
         (item) => item._id !== action.payload
       );
-      // Recalculate totalQuantity and totalPrice after removal
+      // Recalculate totals after removal
       state.totalQuantity = state.cartItems.reduce(
         (total, item) => total + item.quantity,
         0

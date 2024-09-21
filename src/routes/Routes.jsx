@@ -14,6 +14,8 @@ import PaymentCancel from "../pages/PaymentCancel";
 import Register from "../pages/Register";
 import UserDetails from "../pages/UserDetails";
 import EditProfile from "../pages/EditProfile";
+import EditProducts from "../pages/EditProducts";
+import AddProducts from "../pages/AddProducts";
 
 export const router = createBrowserRouter([
   {
@@ -64,14 +66,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      //   {
-      //     path: "/add-products",
-      //     element: (
-      //       <PrivateRoute>
-      //         <AddProducts />
-      //       </PrivateRoute>
-      //     ),
-      //   },
+      {
+        path: "/add-products",
+        element: (
+          <PrivateRoute>
+            <AddProducts />
+          </PrivateRoute>
+        ),
+      },
       //   {
       //     path: "/my-products",
       //     element: (
@@ -112,18 +114,18 @@ export const router = createBrowserRouter([
             `https://ecommerce-dashboard-server-awlu.onrender.com/users/${params.id}`
           ),
       },
-      //   {
-      //     path: "products/edit/:id",
-      //     element: (
-      //       <PrivateRoute>
-      //         <EditProducts />
-      //       </PrivateRoute>
-      //     ),
-      //     loader: ({ params }) =>
-      //       fetch(
-      //         `https://ecommerce-dashboard-server-awlu.onrender.com/products/${params.id}`
-      //       ),
-      //   },
+      {
+        path: "products/edit/:id",
+        element: (
+          <PrivateRoute>
+            <EditProducts />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://ecommerce-dashboard-server-awlu.onrender.com/products/${params.id}`
+          ),
+      },
     ],
   },
 ]);
