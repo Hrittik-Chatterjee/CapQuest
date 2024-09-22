@@ -3,7 +3,6 @@ import useAuth from "../hooks/useAuth";
 const AddProducts = () => {
   const { user } = useAuth();
   const handleSubmit = async (e) => {
-    const token = localStorage.getItem("token");
     e.preventDefault();
 
     const form = e.target;
@@ -34,7 +33,6 @@ const AddProducts = () => {
         method: "POST",
         headers: {
           "Content-type": "application/json",
-          authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       }
@@ -115,13 +113,13 @@ const AddProducts = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 name="category"
               >
-                <option selected="shoe" value="shoe">
-                  Shoe
+                <option selected="basic" value="basic">
+                  Basic Caps
                 </option>
-                <option value="hat">Hat</option>
-                <option value="pant">Pant</option>
-                <option value="shirt">Shirt</option>
-                <option value="t-shirt">Tshirt</option>
+                <option value="BaseBall">BaseBall Caps</option>
+                <option value="CowBoy">Cow Boy Hats</option>
+                <option value="Bucket">Bucket Hats </option>
+                <option value="FlatVisor">Flat Visor Cap</option>
               </select>
             </div>
 
