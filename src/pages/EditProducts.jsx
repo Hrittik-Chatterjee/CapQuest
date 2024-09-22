@@ -13,7 +13,6 @@ const EditProducts = () => {
   const [stock_quantity, setStock_quantity] = useState(product.stock_quantity);
 
   const handleUpdate = async (e) => {
-    const token = localStorage.getItem("token");
     const form = e.target;
     const title = form.title.value;
     const category = form.category.value;
@@ -37,7 +36,6 @@ const EditProducts = () => {
         method: "PATCH",
         headers: {
           "Content-type": "application/json",
-          authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       }
@@ -86,7 +84,21 @@ const EditProducts = () => {
                 required
               />
             </div>
-
+            {/* <div className="w-full">
+              <label className="block mb-2 text-sm font-medium text-gray-900 ">
+                Id
+              </label>
+              <input
+                type="number"
+                name="id"
+                id="id"
+                value={id}
+                onChange={(e) => setId(e.target.value)}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="$2999"
+                required
+              />
+            </div> */}
             <div className="w-full">
               <label className="block mb-2 text-sm font-medium text-gray-900 ">
                 Product Price
@@ -127,11 +139,11 @@ const EditProducts = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 name="category"
               >
-                <option value="shoe">Shoe</option>
-                <option value="hat">Hat</option>
-                <option value="pant">Pant</option>
-                <option value="shirt">Shirt</option>
-                <option value="t-shirt">Tshirt</option>
+                <option value="basic"> Basic Caps</option>
+                <option value="BaseBall">BaseBall Caps</option>
+                <option value="CowBoy">Cow Boy Hats</option>
+                <option value="Bucket">Bucket Hats </option>
+                <option value="FlatVisor">Flat Visor Cap</option>
               </select>
             </div>
 
