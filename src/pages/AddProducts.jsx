@@ -1,6 +1,7 @@
 import useAuth from "../hooks/useAuth";
 
 const AddProducts = () => {
+  const token = localStorage.getItem("token");
   const { user } = useAuth();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +34,7 @@ const AddProducts = () => {
         method: "POST",
         headers: {
           "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       }

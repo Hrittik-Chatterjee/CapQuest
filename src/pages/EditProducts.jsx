@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 const EditProducts = () => {
+  const token = localStorage.getItem("token");
   const product = useLoaderData();
   console.log(product);
 
@@ -36,6 +37,7 @@ const EditProducts = () => {
         method: "PATCH",
         headers: {
           "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       }
