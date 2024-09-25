@@ -1,15 +1,42 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const { logout, user } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false); // State to track if user is admin
 
+  /*************  ✨ Codeium Command ⭐  *************/
+  /**
+   * Handle logout by calling logout function from useAuth hook.
+   * This will sign out the user and remove the user from the state.
+   * @returns {Promise<void>}
+   */
+  /******  c4c84511-8d2e-47bb-8add-72591f1ad8e3  *******/
   const handleLogout = async () => {
     await logout();
   };
+
+  // Effect to check if the user is an admin
+  useEffect(() => {
+    const checkAdminRole = async () => {
+      if (user) {
+        // Assuming the user object has a role field
+        const response = await fetch(
+          `https://ecommerce-dashboard-server-awlu.onrender.com/users/${user?.email}`
+        ); // Replace with your API endpoint
+        const data = await response.json();
+        if (data.role === "admin") {
+          setIsAdmin(true);
+        }
+      }
+    };
+    checkAdminRole();
+  }, [user]);
+
   return (
     <div className="navbar bg-base-100 sticky top-0 z-50">
       <div className="flex-1">
@@ -26,7 +53,7 @@ const Navbar = () => {
                 <Link to="/login">Login</Link>
               </li>
               <li>
-                <Link to="/Register">Register</Link>
+                <Link to="/register">Register</Link>
               </li>
             </>
           )}
@@ -96,26 +123,33 @@ const Navbar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img src={user?.photoURL || "/placeholder.jpg"} />
+                <img
+                  src={user?.photoURL || "/placeholder.jpg"}
+                  alt="User Avatar"
+                />
               </div>
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  bg-slate-400 rounded-box w-52 "
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-slate-400 rounded-box w-52"
             >
-              <li>
-                <Link to="/add-products" className="justify-between">
-                  Add New Products
-                </Link>
-              </li>
+              {isAdmin && (
+                <>
+                  <li>
+                    <Link to="/add-products" className="justify-between">
+                      Add New Products
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/added-products" className="justify-between">
+                      Added Product Lists
+                    </Link>
+                  </li>
+                </>
+              )}
               <li>
                 <Link to="/my-profile" className="justify-between">
                   My Profile
-                </Link>
-              </li>
-              <li>
-                <Link to="/AddedProductsLists" className="justify-between">
-                  Added Product Lists
                 </Link>
               </li>
             </ul>
