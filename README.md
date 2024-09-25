@@ -29,9 +29,7 @@ Backend Repository [here](https://github.com/Hrittik-Chatterjee/ecommerce-dashbo
 
 CapQuest allows users to easily navigate through available caps, place orders, and manage their account. Admins have full control to perform CRUD operations on the product listings.
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
