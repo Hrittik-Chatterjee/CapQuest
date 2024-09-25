@@ -22,41 +22,41 @@ const OrderHistory = () => {
 
   return (
     <div className="bg-gray-100 p-8 my-8">
-      <div className="bg-white shadow-md rounded-lg">
+      <div className="bg-white shadow-md rounded-lg overflow-x-auto">
         <div className="px-6 py-4 border-b">
-          <h2 className="font-bold text-xl">Order History</h2>
+          <h2 className="font-bold text-xl md:text-2xl">Order History</h2>
         </div>
         <table className="min-w-full leading-normal">
           <thead>
             <tr>
-              <th className="px-5 py-3 bg-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="px-3 py-3 bg-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
                 Order Number
               </th>
-              <th className="px-5 py-3 bg-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="px-3 py-3 bg-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
                 Order Date
               </th>
-              <th className="px-5 py-3 bg-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="px-3 py-3 bg-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
                 Items
               </th>
-              <th className="px-5 py-3 bg-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="px-3 py-3 bg-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-5 py-3 bg-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="px-3 py-3 bg-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
                 Total Price
               </th>
-              <th className="px-5 py-3 bg-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider"></th>
+              <th className="px-3 py-3 bg-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider"></th>
             </tr>
           </thead>
           <tbody>
             {orders.map((order) => (
               <tr key={order._id} className="bg-white hover:bg-gray-50">
-                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                <td className="px-3 py-5 border-b border-gray-200 text-sm">
                   {order._id}
                 </td>
-                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                <td className="px-3 py-5 border-b border-gray-200 text-sm">
                   {new Date(order.created_at).toLocaleDateString()}
                 </td>
-                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                <td className="px-3 py-5 border-b border-gray-200 text-sm">
                   {order.items
                     ? order.items.map((item, index) => (
                         <div key={index}>
@@ -65,13 +65,13 @@ const OrderHistory = () => {
                       ))
                     : "No items"}
                 </td>
-                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                <td className="px-3 py-5 border-b border-gray-200 text-sm">
                   {order.payment_status}
                 </td>
-                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                <td className="px-3 py-5 border-b border-gray-200 text-sm">
                   ${order.amount_total / 100}
                 </td>
-                <td className="px-5 py-5 border-b border-gray-200 text-sm">
+                <td className="px-3 py-5 border-b border-gray-200 text-sm">
                   <button className="bg-yellow-500 text-white font-semibold py-2 px-4 rounded hover:bg-yellow-600">
                     Re-Order
                   </button>

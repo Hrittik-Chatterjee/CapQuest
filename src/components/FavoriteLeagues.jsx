@@ -36,7 +36,7 @@ const FavoriteLeagues = () => {
         </h2>
       </div>
 
-      <div className="flex justify-center space-x-8">
+      <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-items-center">
         {leagues.map((league) => (
           <div key={league.name} className="flex flex-col items-center">
             <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">

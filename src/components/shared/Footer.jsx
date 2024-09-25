@@ -48,7 +48,17 @@ const Footer = () => {
       </nav>
       <aside>
         <p>Copyright © 2024 - All rights reserved by CapQuest</p>
-        <p>Made with ❤️ by Hrittik Chatterjee</p>
+        <p>
+          Designed and developed by{" "}
+          <Link
+            to="https://github.com/hrittik-chatterjee"
+            className="link link-hover"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Hrittik Chatterjee
+          </Link>
+        </p>
       </aside>
     </footer>
   );

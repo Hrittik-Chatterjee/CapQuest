@@ -5,7 +5,7 @@ import { HashLoader } from "react-spinners";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [sortOption, setSortOption] = useState(""); // State for sorting
+  const [sortOption, setSortOption] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,9 +27,9 @@ const ProductList = () => {
 
   // Sort products based on selected sort option
   if (sortOption === "lowToHigh") {
-    filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+    filteredProducts.sort((a, b) => a.price - b.price);
   } else if (sortOption === "highToLow") {
-    filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+    filteredProducts.sort((a, b) => b.price - a.price);
   }
 
   return (
@@ -42,10 +42,24 @@ const ProductList = () => {
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content flex flex-col items-center justify-center">
+            {/* Top category selection for small devices */}
+            <div className="block lg:hidden w-full my-4">
+              <select
+                className="select select-bordered w-full"
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                value={selectedCategory}
+              >
+                <option value="">All Categories</option>
+                <option value="basic">Basic Caps</option>
+                <option value="BaseBall">Baseball Caps</option>
+                <option value="CowBoy">Cow Boy Hats</option>
+                <option value="FlatVisor">Flat Visor Caps</option>
+                <option value="Bucket">Bucket Hats</option>
+              </select>
+            </div>
+
             {/* Sorting dropdown */}
             <div className="flex justify-end space-x-4 my-4 w-full">
-              {" "}
-              {/* Changed to justify-end */}
               <div className="relative inline-block">
                 <select
                   className="select select-bordered w-full max-w-xs"
@@ -59,7 +73,7 @@ const ProductList = () => {
               </div>
             </div>
 
-            {/* page content here */}
+            {/* Page content here with responsive grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {filteredProducts.map((product) => (
                 <SingleProductCard key={product._id} product={product} />
