@@ -7,27 +7,18 @@ const Navbar = () => {
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const { logout, user } = useAuth();
-  const [isAdmin, setIsAdmin] = useState(false); // State to track if user is admin
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  /*************  ✨ Codeium Command ⭐  *************/
-  /**
-   * Handle logout by calling logout function from useAuth hook.
-   * This will sign out the user and remove the user from the state.
-   * @returns {Promise<void>}
-   */
-  /******  c4c84511-8d2e-47bb-8add-72591f1ad8e3  *******/
   const handleLogout = async () => {
     await logout();
   };
 
-  // Effect to check if the user is an admin
   useEffect(() => {
     const checkAdminRole = async () => {
       if (user) {
-        // Assuming the user object has a role field
         const response = await fetch(
           `https://ecommerce-dashboard-server-awlu.onrender.com/users/${user?.email}`
-        ); // Replace with your API endpoint
+        );
         const data = await response.json();
         if (data.role === "admin") {
           setIsAdmin(true);
@@ -38,11 +29,62 @@ const Navbar = () => {
   }, [user]);
 
   return (
-    <div className="navbar bg-base-100 sticky top-0 z-50">
+    <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">CapQuest</a>
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
+          CapQuest
+        </Link>
       </div>
-      <div className="flex-none ">
+      <div className="flex-none lg:hidden">
+        {/* Hamburger Menu for Mobile */}
+        <div className="dropdown dropdown-end">
+          <label tabIndex={0} className="btn btn-ghost btn-circle">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
+            </svg>
+          </label>
+          <ul
+            tabIndex={0}
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            {!user && (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+              </>
+            )}
+            <li>
+              <Link to="/productlist">Product List</Link>
+            </li>
+            {user && (
+              <>
+                <li onClick={handleLogout}>
+                  <p>Logout</p>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+      </div>
+      <div className="hidden lg:flex flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
             <Link to="/">Home</Link>
@@ -60,7 +102,6 @@ const Navbar = () => {
           <li>
             <Link to="/productlist">Product List</Link>
           </li>
-
           {user && (
             <>
               <li onClick={handleLogout}>
