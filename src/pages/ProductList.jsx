@@ -79,13 +79,6 @@ const ProductList = () => {
                 <SingleProductCard key={product._id} product={product} />
               ))}
             </div>
-
-            <label
-              htmlFor="my-drawer-2"
-              className="btn btn-primary drawer-button lg:hidden"
-            >
-              Open drawer
-            </label>
           </div>
           <div className="drawer-side">
             <label
