@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 /* eslint-disable react/prop-types */
 const ImageCard = ({ imageUrl, title, description, imageRight }) => {
   return (
@@ -12,9 +14,12 @@ const ImageCard = ({ imageUrl, title, description, imageRight }) => {
       <div className="w-full md:w-1/2 flex flex-col justify-center ml-6">
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
         <p className="text-lg mb-4">{description}</p>
-        <button className="bg-black text-white py-2 px-4 btn rounded-full w-28 hover:bg-gray-800">
-          Shop Now
-        </button>
+
+        <Link to="/productlist">
+          <button className="bg-black text-white py-2 px-4 btn rounded-full w-28 hover:bg-gray-800">
+            Shop Now
+          </button>
+        </Link>
       </div>
 
       {/* Image Section */}

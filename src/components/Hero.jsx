@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Hero = () => {
   return (
     <div>
@@ -19,9 +21,11 @@ const Hero = () => {
               Spike Lee for CapQuest™ F/W24 Collection Available Now..
             </p>
 
-            <button className="btn btn-gray-100 border rounded-full">
-              Shop the Collections
-            </button>
+            <Link to="/productlist">
+              <button className="btn btn-gray-100 border rounded-full">
+                Shop the Collections
+              </button>{" "}
+            </Link>
           </div>
         </div>
       </div>
